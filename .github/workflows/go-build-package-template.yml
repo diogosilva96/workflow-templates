@@ -1,3 +1,49 @@
 on:
   workflow_call: 
-   
+    inputs:
+      go-version:
+        required: false
+        default: '>=1.21.0'
+        type: string
+      project-path:
+        required: false
+        default: '.'
+        type: string
+      publish-package:
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ✅ Checkout 
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Go ${{ inputs.go-version }}
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ inputs.go-version }}
+        
+      - name: ⚙️ Install dependencies
+        working-directory: ${{ inputs.project-path }}
+        run: go get .
+      
+      - name: 🔨 Build
+        working-directory: ${{ inputs.project-path }}
+        run: go build -v .
+      
+      - name: 🧪 Test
+        working-directory: ${{ inputs.project-path }}
+        run: go test # TODO: to be improved
+      
+      - name: 🧹 Tidy
+        if: ${{ inputs.publish-package }}
+        working-directory: ${{ inputs.project-path }}
+        run: go mod tidy
+
+      - name: 📦 Publish
+        if: ${{ inputs.publish-package }}
+        working-directory: ${{ inputs.project-path }}
+        run: go list
