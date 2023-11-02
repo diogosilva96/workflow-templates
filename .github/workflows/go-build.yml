@@ -9,10 +9,7 @@ on:
         required: false
         default: '.'
         type: string
-      publish-package:
-        required: false
-        default: true
-        type: boolean
+
 
 jobs:
   build:
@@ -37,13 +34,3 @@ jobs:
       - name: 🧪 Test
         working-directory: ${{ inputs.project-path }}
         run: go test # TODO: to be improved
-      
-      - name: 🧹 Tidy
-        if: ${{ inputs.publish-package }}
-        working-directory: ${{ inputs.project-path }}
-        run: go mod tidy
-
-      - name: 📦 Publish
-        if: ${{ inputs.publish-package }}
-        working-directory: ${{ inputs.project-path }}
-        run: go list
