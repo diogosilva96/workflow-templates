@@ -18,7 +18,7 @@ on:
 
 jobs:
   generate-semver:
-    uses: ./.github/workflows/generate-semver-template.yml
+    uses: ./.github/workflows/generate-semver.yml
       
   build-and-test:
     runs-on: ubuntu-latest
