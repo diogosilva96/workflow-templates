@@ -1,4 +1,4 @@
-﻿on:
+ on:
   workflow_call:
     outputs:
       semver: 
@@ -10,7 +10,7 @@ jobs:
   generate-semver:
     runs-on: ubuntu-latest
     outputs:
-      semver: ${{ steps.semver.outputs.version }}
+      semver: ${{ steps.semver.outputs.version }} # needs to be improved (maybe simply use a single semver variable, but use a different format based on branch e.g., main vs dev vs feature branch)
       build-semver: ${{ steps.build-semver.outputs.semver }}
     steps:
       - name: ✅ Checkout
