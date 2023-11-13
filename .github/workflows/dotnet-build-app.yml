@@ -1,21 +1,9 @@
 on:
   workflow_call: 
     inputs: 
-      project-path:
-        required: false
-        default: '.'
-        type: string
       dotnet-version:
         required: false
         default: '7.x.x'
-        type: string
-      artifact-name:
-        required: false
-        default: 'app'
-        type: string
-      publish-path:
-        required: false
-        default: 'app'
         type: string
       docker-publish:
         required: false
@@ -27,6 +15,20 @@ on:
       docker-image-name:
         required: true
         type: string
+# TODO: uncomment lines below once dotnet publish + docker file is added
+#      project-path:
+#        required: false
+#        default: '.'
+#        type: string
+#      artifact-name:
+#        required: false
+#        default: 'app'
+#        type: string
+#      publish-path:
+#        required: false
+#        default: 'app'
+#        type: string
+
 
 jobs:
   version:
@@ -68,14 +70,16 @@ jobs:
       
       - name: 💻 Display code coverage report
         run: cat ${{ env.coverage_report_directory }}/Summary.md >> $GITHUB_STEP_SUMMARY
-        
-      - name: Publish
-        run: dotnet publish ${{ inputs.project-path }} -c Release -o ${{ github.workspace }}/${{ inputs.publish-path }} -r linux-x64 --self-contained true
-     
-      - uses: actions/upload-artifact@v3
-        with:
-          name: ${{ inputs.artifact-name }}
-          path: ${{ github.workspace }}/${{ inputs.publish-path }}
+          
+# TODO: uncomment lines below once dotnet publish + docker file is added
+#      - name: Publish
+#        run: dotnet publish ${{ inputs.project-path }} -c Release -o ${{ github.workspace }}/${{ inputs.publish-path }} -r linux-x64 --self-contained true
+#     
+#      - name: Publish artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: ${{ inputs.artifact-name }}
+#          path: ${{ github.workspace }}/${{ inputs.publish-path }}
           
   publish-image:
     if: ${{ inputs.docker-publish }}
