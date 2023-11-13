@@ -22,7 +22,7 @@ jobs:
         run: |
           if [ ${{ github.ref_name }} == 'main' ]; then
             echo "version=${{ steps.semver.outputs.version }}" >> "$GITHUB_OUTPUT"
-          elif [ ${{ github.ref_name }} == 'development]; then
+          elif [ ${{ github.ref_name }} == 'development' ]; then
             echo "version=${{ steps.semver.outputs.version }}-${{ github.run_id }}.${{ github.run_attempt }}" >> "$GITHUB_OUTPUT"
           else
             echo "version=${{ steps.semver.outputs.version }}-${{ github.ref_name }}-${{ github.run_id }}.${{ github.run_attempt }}" >> "$GITHUB_OUTPUT"
