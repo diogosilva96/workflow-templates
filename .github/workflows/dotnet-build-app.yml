@@ -22,7 +22,7 @@ jobs:
       
   build-and-test:
     runs-on: ubuntu-latest
-    needs: generate-semver
+    needs: version
     env:
       coverage_directory: ./coverage
       coverage_report_directory: coverage-report
@@ -61,11 +61,11 @@ jobs:
     if: ${{ inputs.docker-publish }}
     needs: 
     - build-and-test
-    - generate-semver 
+    - version 
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     env: 
-      tag: ${{ needs.generate-semver.outputs.semver }}
+      tag: ${{ needs.version.outputs.semver }}
     steps:
     - name: ✅ Checkout 
       uses: actions/checkout@v3
