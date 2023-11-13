@@ -8,8 +8,7 @@ jobs:
   version:
     runs-on: ubuntu-latest
     outputs:
-      semver: ${{ steps.semver.outputs.version }} # needs to be improved (maybe simply use a single semver variable, but use a different format based on branch e.g., main vs dev vs feature branch)
-      build-semver: ${{ steps.build-semver.outputs.semver }}
+      version: ${{ steps.semver.outputs.version }}
     steps:
       - name: ✅ Checkout
         uses: actions/checkout@v3
@@ -18,7 +17,7 @@ jobs:
         id: semver
         uses: paulhatch/semantic-version@v5.3.0
 
-      - name: ⚙️ Generate Version
+      - name: ⚙️ Build version
         id: version
         run: |
           if [ ${{ github.ref_name }} == 'main' ]; then
@@ -29,5 +28,5 @@ jobs:
             echo "version=${{ steps.semver.outputs.version }}-${{ github.ref_name }}-${{ github.run_id }}.${{ github.run_attempt }}" >> "$GITHUB_OUTPUT"
           fi
           
-      - name: print version
-        run: echo ${{ jobs.version.outputs.version }}
+      - name: 🖥️ Print version
+        run: echo ${{ steps.semver.outputs.version }}
