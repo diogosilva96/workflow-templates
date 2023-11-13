@@ -7,7 +7,7 @@ on:
         value: ${{ jobs.generate-semver.outputs.build-semver }}
     
 jobs:
-  generate-semver:
+  version:
     runs-on: ubuntu-latest
     outputs:
       semver: ${{ steps.semver.outputs.version }} # needs to be improved (maybe simply use a single semver variable, but use a different format based on branch e.g., main vs dev vs feature branch)

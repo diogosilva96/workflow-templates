@@ -17,8 +17,8 @@ on:
         type: string
 
 jobs:
-  generate-semver:
-    uses: ./.github/workflows/generate-semver.yml
+  version:
+    uses: ./.github/workflows/version.yml
       
   build-and-test:
     runs-on: ubuntu-latest
