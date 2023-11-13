@@ -24,3 +24,6 @@ jobs:
         id: build-semver
         run: |
           echo "semver=${{ steps.semver.outputs.version }}-${{ github.run_id }}.${{ github.run_attempt }}" >> "$GITHUB_OUTPUT"
+          
+      - name: print version
+        run: echo ${{ steps.semver.outputs.version }}-${{ github.run_id }}.${{ github.run_attempt }}
