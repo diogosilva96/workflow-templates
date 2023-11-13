@@ -15,7 +15,7 @@ on:
         type: string
       publish-path:
         required: false
-        default: '/app'
+        default: 'app'
         type: string
       docker-publish:
         required: false
@@ -70,12 +70,12 @@ jobs:
         run: cat ${{ env.coverage_report_directory }}/Summary.md >> $GITHUB_STEP_SUMMARY
         
       - name: Publish
-        run: dotnet publish ${{ inputs.project-path }} -c Release -o ${{ inputs.publish-path }} -r linux-x64 --self-contained true
+        run: dotnet publish ${{ inputs.project-path }} -c Release -o ${{ github.workspace }}/${{ inputs.publish-path }} -r linux-x64 --self-contained true
      
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ inputs.artifact-name }}
-          path: ${{ inputs.publish-path }}
+          path: ${{ github.workspace }}/${{ inputs.publish-path }}
           
   publish-image:
     if: ${{ inputs.docker-publish }}
