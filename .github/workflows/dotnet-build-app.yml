@@ -27,7 +27,7 @@ jobs:
       coverage_directory: ./coverage
       coverage_report_directory: coverage-report
       publish_directory: ./publish
-      tag: ${{ needs.generate-semver.outputs.build-semver }}
+      tag: ${{ needs.version.outputs.build-semver }}
     steps:
       - name: ✅ Checkout 
         uses: actions/checkout@v3
