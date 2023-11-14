@@ -3,7 +3,7 @@ on:
     inputs: 
       dotnet-version:
         required: false
-        default: '7.x.x'
+        default: '8.x.x'
         type: string
       publish-directory:
         required: false
