@@ -60,7 +60,7 @@ jobs:
         run: dotnet test --configuration Release --no-restore --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory ${{ env.test_results_directory }}
         
       - name: 📡 Upload test results artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: tests
           path: ${{ env.test_results_directory }}

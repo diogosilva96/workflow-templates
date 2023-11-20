@@ -46,7 +46,7 @@ jobs:
           run: dotnet ef migrations script --idempotent --project ${{ inputs.migrations-project }} --output ${{ inputs.publish-directory }}/migrations.sql
        
         - name: 📡 Upload data artifact
-          uses: actions/upload-artifact@v2
+          uses: actions/upload-artifact@v3
           with: 
             name: data
             path: ${{ inputs.publish-directory }}
