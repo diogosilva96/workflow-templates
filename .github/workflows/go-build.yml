@@ -40,7 +40,7 @@ jobs:
           
       - name: 🧪 Test
         working-directory: ${{ inputs.project-path }}
-        run: go test -v -json > ${{ steps.create_test_output_directory.directory }}/tests.json
+        run: go test -v -json > ${{ steps.create_test_output_directory.outputs.directory }}/tests.json
       
       - name: 📡 Upload test results artifact
         uses: actions/upload-artifact@v3
