@@ -13,6 +13,8 @@ on:
 
 jobs:
   build:
+    env:
+      test_results_directory: publish/tests
     runs-on: ubuntu-latest
     steps:
       - name: ✅ Checkout 
@@ -33,4 +35,10 @@ jobs:
       
       - name: 🧪 Test
         working-directory: ${{ inputs.project-path }}
-        run: go test # TODO: to be improved
+        run: go test -v -json > ${{ env.test_results_directory }}/tests.json
+      
+      - name: 📡 Upload test results artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: tests
+          path: ${{ env.test_results_directory }}
