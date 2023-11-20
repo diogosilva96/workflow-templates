@@ -46,4 +46,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: tests
-          path: ${{ env.test_results_directory }}
+          path: ${{ steps.create_test_output_directory.outputs.directory }}
