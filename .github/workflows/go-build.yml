@@ -13,8 +13,6 @@ on:
 
 jobs:
   build:
-    env:
-      test_results_directory: publish/tests
     runs-on: ubuntu-latest
     steps:
       - name: ✅ Checkout 
@@ -32,10 +30,17 @@ jobs:
       - name: 🔨 Build
         working-directory: ${{ inputs.project-path }}
         run: go build -v .
-      
+        
+      - name: 📁 Create test output directory
+        id: create_test_output_directory
+        run: |
+          mkdir publish -v
+          mkdir publish/tests -v
+          echo "directory=publish/tests" >> $GITHUB_OUTPUT
+          
       - name: 🧪 Test
         working-directory: ${{ inputs.project-path }}
-        run: go test -v -json > ${{ env.test_results_directory }}/tests.json
+        run: go test -v -json > ${{ steps.create_test_output_directory.directory }}/tests.json
       
       - name: 📡 Upload test results artifact
         uses: actions/upload-artifact@v3
